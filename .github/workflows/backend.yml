@@ -1,10 +1,10 @@
 name: Verify
 on:
   push:
+    branches:
+      - "master"
     paths:
       - "backend/**"
-      branches:
-        - master
 
 jobs:
   build:
