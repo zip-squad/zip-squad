@@ -23,6 +23,7 @@ jobs:
           - cd ../../../frontend
           - yarn ci --no-progress
           - yarn build
+          - yarn test
         with:
           tf_actions_version: 1.0.8
           tf_actions_subcommand: "init"
