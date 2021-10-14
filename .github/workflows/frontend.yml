@@ -8,10 +8,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-        working-directory: "frontend/**"
     steps:
       # Clone the repo
       - name: Clone repository
@@ -27,6 +23,7 @@ jobs:
       # Build the static site
       - name: Create static build
         run: yarn install && yarn build
+        working-directory: "frontend/**"
       # Upload the artifact for other stages to use
       - name: Share artifact in github workflow
         uses: actions/upload-artifact@v1
