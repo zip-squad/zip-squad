@@ -3,7 +3,7 @@ name: Verify frontend
 on:
   push:
     paths:
-      - "frontend/**"
+      - "**.ts"
 
 jobs:
   build:
