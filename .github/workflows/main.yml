@@ -1,21 +1,16 @@
 name: Deploy Production
-
-on:
-  push:
-    branches:
-      - master
+on: [push]
 
 jobs:
-  verify-frontend:
-    name: "Verify frontend"
-    runs-on: macos-latest
+  build:
+    runs-on: ubuntu-latest
     steps:
       # Clone the repo
       - name: Clone repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v1
       # Cache node modules
       - name: Cache node modules
-        uses: actions/cache@v2
+        uses: actions/cache@v1
         with:
           path: node_modules
           key: yarn-deps-${{ hashFiles('yarn.lock') }}
@@ -23,19 +18,10 @@ jobs:
             yarn-deps-${{ hashFiles('yarn.lock') }}
       # Build the static site
       - name: Create static build
-        run: cd ../../frontend && yarn install && yarn build
+        run: yarn install && yarn build
       # Upload the artifact for other stages to use
       - name: Share artifact in github workflow
-        uses: actions/upload-artifact@v2
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-      - name: "Terraform Initialization"
-        uses: hashicorp/terraform-github-actions@master
+        uses: actions/upload-artifact@v1
         with:
           name: build
           path: build
-          tf_actions_version: 1.0.8
-          tf_actions_subcommand: "init"
-          tf_actions_cli_credentials_token: ${{ secrets.TF_API_TOKEN }}
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
