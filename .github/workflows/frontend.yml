@@ -1,9 +1,12 @@
 name: Verify frontend
 
-on:
-  push:
-    paths:
-      - "**.ts"
+on: [push]
+
+branches:
+  - master
+
+paths:
+  - "frontend/**"
 
 jobs:
   build:
