@@ -1,0 +1,27 @@
+name: "Terraform"
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  terraform:
+    name: "Terraform init"
+    runs-on: ubuntu-latest
+    steps:
+      # Checkout the repository to the GitHub Actions runner
+      - name: Checkout
+        uses: actions/checkout@master
+
+      # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v1
+      - name: "Terraform Initialization"
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.18
+          tf_actions_subcommand: "init"
+          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
