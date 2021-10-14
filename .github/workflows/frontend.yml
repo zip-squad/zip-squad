@@ -1,4 +1,5 @@
-name: Verify
+name: Verify frontend
+
 on:
   push:
     branches:
