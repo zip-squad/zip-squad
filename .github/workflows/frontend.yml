@@ -21,12 +21,12 @@ jobs:
           restore-keys: |
             yarn-deps-${{ hashFiles('yarn.lock') }}
       # Build the static site
-      - name: Create static build
+      - name: Build frontend
         run: yarn install && yarn build
         working-directory: "frontend"
       # Upload the artifact for other stages to use
       - name: Share artifact in github workflow
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: build
+          name: Verify frontend
           path: build
