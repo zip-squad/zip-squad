@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-      # Clone the repo
+      # Clone repo
       - name: Clone repository
         uses: actions/checkout@v2
       # Cache node modules
@@ -20,13 +20,7 @@ jobs:
           key: yarn-deps-${{ hashFiles('yarn.lock') }}
           restore-keys: |
             yarn-deps-${{ hashFiles('yarn.lock') }}
-      # Build the static site
+      # Install dependencies and build frontend
       - name: Build frontend
-        run: yarn install && yarn build
+        run: yarn && yarn build
         working-directory: "frontend"
-      # Upload the artifact for other stages to use
-      - name: Share artifact in github workflow
-        uses: actions/upload-artifact@v2
-        with:
-          name: Verify frontend
-          path: build
