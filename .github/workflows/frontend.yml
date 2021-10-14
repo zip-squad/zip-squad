@@ -2,10 +2,8 @@ name: Verify frontend
 
 on:
   push:
-    branches:
-      - master
     paths:
-      - "frontend"
+      - "frontend/**"
 
 jobs:
   build:
